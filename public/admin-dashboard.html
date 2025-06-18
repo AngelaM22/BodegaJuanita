@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Panel Admin - Comercial Juanita</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f2f4f7;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 230px;
+      height: 100vh;
+      background-color: #1B4332;
+      color: #fff;
+      padding-top: 20px;
+      transition: all 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar h4 {
+      text-align: center;
+      font-weight: bold;
+      color: #D9F99D;
+      margin-bottom: 30px;
+    }
+
+    .sidebar a {
+      display: block;
+      padding: 12px 20px;
+      color: #ffffffd9;
+      text-decoration: none;
+      font-size: 1rem;
+      transition: background 0.3s, color 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #4CAF50;
+      color: white;
+      border-left: 4px solid #D9F99D;
+    }
+
+    .main {
+      margin-left: 230px;
+    }
+
+    header {
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      height: 60px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    iframe {
+      width: 100%;
+      height: calc(100vh - 60px);
+      border: none;
+      background: white;
+    }
+
+    .logout-btn {
+      background-color: white;
+      color: #4CAF50;
+      font-weight: bold;
+      padding: 6px 14px;
+      border: none;
+      border-radius: 6px;
+      transition: 0.3s ease;
+    }
+
+    .logout-btn:hover {
+      background-color: #1B4332;
+      color: white;
+    }
+
+    @media (max-width: 768px) {
+      .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        text-align: center;
+      }
+
+      .main {
+        margin-left: 0;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        gap: 10px;
+      }
+
+      iframe {
+        height: auto;
+        min-height: 500px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h4>🛒 Comercial Juanita</h4>
+    <a href="#" onclick="cargar('dashboard')"><i class="bi bi-house-door-fill me-2"></i>Inicio</a>
+    <a href="#" onclick="cargar('listaproductos')"><i class="bi bi-card-list me-2"></i>Lista Productos</a>
+    <a href="#" onclick="cargar('usuarios')"><i class="bi bi-person-badge me-2"></i>Usuarios</a>
+    <a href="#" onclick="cargar('ordenes')"><i class="bi bi-receipt me-2"></i>Órdenes</a>
+    <a href="#" class="mt-3" onclick="logout()"><i class="bi bi-box-arrow-left me-2"></i>Salir</a>
+  </div>
+
+  <!-- Contenido principal -->
+  <div class="main">
+
+    <iframe id="contenido" src=""></iframe>
+  </div>
+
+  <script>
+    function cargar(seccion) {
+      const rutas = {
+        dashboard: 'admin-dashboard-home.html',
+        productos: 'admin-productos.html',
+        listaproductos: 'lista-productos.html',
+        usuarios: 'admin-usuarios.html',
+        ordenes: 'admin-ordenes.html'
+      };
+      document.getElementById('contenido').src = rutas[seccion];
+    }
+
+    function logout() {
+      localStorage.removeItem('token');
+      window.location.href = 'login.html';
+    }
+
+    window.onload = () => cargar('dashboard');
+  </script>
+</body>
+</html>
